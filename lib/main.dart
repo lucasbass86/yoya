@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: routes,
       initialRoute: HomePage.routeName,
-      theme: themeData,
+      darkTheme: darkTheme,
       localizationsDelegates: const [GlobalMaterialLocalizations.delegate, GlobalWidgetsLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
       supportedLocales: const [Locale('es')],
     );

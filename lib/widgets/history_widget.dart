@@ -23,7 +23,7 @@ class HistoryWidget extends StatelessWidget {
             width: double.infinity,
             height: 70,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: Utils.darkColorGreen, borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(color: Utils.darkColorSecond, borderRadius: BorderRadius.circular(20)),
             child: Row(
               children: [
                 Icon(profile.icon, size: 25),
@@ -49,11 +49,17 @@ class HistoryWidget extends StatelessWidget {
     final mainProvider = Provider.of<MainProvider>(context, listen: false);
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
-    final date = await showDate(context, initialDate: history.date);
-    if (date == null) return;
+    DateTime? date = await showDate(context, initialDate: history.date);
+    date ??= history.date;
 
-    history.date = DateTime(date.year, date.month, date.day, history.date.hour, history.date.minute, history.date.second);
+    if (!context.mounted) return;
 
+    final time = await showTime(context, initialTimeOfDay: TimeOfDay.fromDateTime(history.date));
+    if (time != TimeOfDay.fromDateTime(history.date)) {
+      history.date = DateTime(date.year, date.month, date.day, time.hour, time.minute, 0);
+    } else {
+      history.date = DateTime(date.year, date.month, date.day, history.date.hour, history.date.minute, history.date.second);
+    }
     mainProvider.updateHistory(history);
     scaffoldMessenger.showSnackBar(Utils.snackBar('Registro actualizado'));
   }

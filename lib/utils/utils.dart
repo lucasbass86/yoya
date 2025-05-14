@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as p;
 import 'package:permission_handler/permission_handler.dart';
 
@@ -11,16 +12,16 @@ class Utils {
   //https://colorhunt.co/palette/f5eedd7ae2cf077a7d06202b
   static final Color lightColorBackground = Color.fromARGB(255, 245, 238, 221);
   static final Color darkColorBackground = Color.fromARGB(255, 6, 32, 43);
-  static final Color lightColorGreen = Color.fromARGB(255, 122, 226, 207);
-  static final Color darkColorGreen = Color.fromARGB(255, 7, 122, 125);
+  static final Color lightColorSecond = Color.fromARGB(255, 122, 226, 207);
+  static final Color darkColorSecond = Color.fromARGB(255, 7, 122, 125);
 
   static final double iconSize = 40;
 
   static final String fontFamilyName = 'Wonderly';
-  static final TextStyle bigTitleStyle = TextStyle(fontSize: 35, color: lightColorGreen, fontFamily: fontFamilyName);
-  static final TextStyle normalStyle15 = TextStyle(fontSize: 15, color: lightColorGreen, fontFamily: fontFamilyName);
-  static final TextStyle normalStyle20 = TextStyle(fontSize: 20, color: lightColorGreen, fontFamily: fontFamilyName);
-  static final TextStyle normalStyle30 = TextStyle(fontSize: 30, color: lightColorGreen, fontFamily: fontFamilyName);
+  static final TextStyle bigTitleStyle = TextStyle(fontSize: 35, color: lightColorSecond, fontFamily: fontFamilyName);
+  static final TextStyle normalStyle15 = TextStyle(fontSize: 15, color: lightColorSecond, fontFamily: fontFamilyName);
+  static final TextStyle normalStyle20 = TextStyle(fontSize: 20, color: lightColorSecond, fontFamily: fontFamilyName);
+  static final TextStyle normalStyle30 = TextStyle(fontSize: 30, color: lightColorSecond, fontFamily: fontFamilyName);
 
   static final List<IconData> profileIcons = [
     Icons.person,
@@ -74,7 +75,7 @@ class Utils {
   static final Box boxHistory = Hive.box(boxHistoryName);
 
   static SnackBar snackBar(String msg) {
-    return SnackBar(content: Text(msg, style: TextStyle(color: darkColorGreen)));
+    return SnackBar(content: Text(msg, style: TextStyle(color: darkColorSecond)));
   }
 
   static bool isValidEmail(String email) {

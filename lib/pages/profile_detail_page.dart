@@ -67,11 +67,11 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                         underline: Container(),
                         items:
                             Utils.profileIcons.map((iconData) {
-                              return DropdownMenuItem(value: iconData, child: Icon(iconData, color: Utils.darkColorGreen));
+                              return DropdownMenuItem(value: iconData, child: Icon(iconData, color: Utils.darkColorSecond));
                             }).toList(),
                         selectedItemBuilder: (context) {
                           return Utils.profileIcons.map((iconData) {
-                            return Icon(icon, color: Utils.lightColorGreen);
+                            return Icon(icon, color: Utils.lightColorSecond);
                           }).toList();
                         },
                         onChanged: (value) {
@@ -84,7 +84,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                Divider(color: Utils.lightColorGreen),
+                Divider(color: Utils.lightColorSecond),
                 const SizedBox(height: 10),
                 SearchWidget(
                   onChange: (String value) {

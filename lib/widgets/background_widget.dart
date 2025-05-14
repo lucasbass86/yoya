@@ -7,7 +7,7 @@ class BackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = Utils.lightColorGreen.withAlpha(20);
+    final Color color = Utils.lightColorSecond.withAlpha(20);
     return Stack(
       children: [
         Positioned(

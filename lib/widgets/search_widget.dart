@@ -24,7 +24,7 @@ class _SearchWidgetState extends State<SearchWidget> {
             width: isExpanded ? constraints.maxWidth : 65,
             height: 70,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: isExpanded ? Utils.lightColorBackground : Utils.darkColorGreen, borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(color: isExpanded ? Utils.lightColorBackground : Utils.darkColorSecond, borderRadius: BorderRadius.circular(20)),
             child: TextField(
               controller: searchController,
               maxLength: 20,

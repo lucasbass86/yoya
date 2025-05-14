@@ -20,7 +20,7 @@ class ProfileWidget extends StatelessWidget {
             width: double.infinity,
             height: 80,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: Utils.darkColorGreen, borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(color: Utils.darkColorSecond, borderRadius: BorderRadius.circular(20)),
             child: Row(children: [Icon(profile.icon), const SizedBox(width: 10), Text(profile.name, style: Utils.normalStyle30)]),
           ),
         ),

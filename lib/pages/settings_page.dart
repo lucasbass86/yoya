@@ -36,6 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
               child: Column(
                 children: [
                   TopWidget(title: 'Configuración', showHelp: true),
+                  SizedBox(height: 20),
                   FutureBuilder(
                     future: Utils.checkConnection(),
                     builder: (context, snapshot) {
@@ -165,7 +166,7 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Ink(
             width: 140,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: Utils.darkColorGreen, borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(color: Utils.darkColorSecond, borderRadius: BorderRadius.circular(20)),
             child: Column(children: [Text('Cargar datos', style: Utils.normalStyle20), const SizedBox(height: 5), Icon(Icons.restore)]),
           ),
         ),
@@ -183,7 +184,7 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Ink(
             width: 140,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: Utils.darkColorGreen, borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(color: Utils.darkColorSecond, borderRadius: BorderRadius.circular(20)),
             child: Column(children: [Text('Subir datos', style: Utils.normalStyle20), const SizedBox(height: 5), Icon(Icons.backup_sharp)]),
           ),
         ),
@@ -201,7 +202,7 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Ink(
             width: 140,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: Utils.darkColorGreen, borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(color: Utils.darkColorSecond, borderRadius: BorderRadius.circular(20)),
             child: Column(children: [Text('Guardar', style: Utils.normalStyle20), const SizedBox(height: 5), Icon(Icons.save_alt_rounded)]),
           ),
         ),
@@ -219,7 +220,7 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Ink(
             width: 140,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: Utils.darkColorGreen, borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(color: Utils.darkColorSecond, borderRadius: BorderRadius.circular(20)),
             child: Column(children: [Text('Cargar', style: Utils.normalStyle20), const SizedBox(height: 5), Icon(Icons.restart_alt_rounded)]),
           ),
         ),
@@ -297,7 +298,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
     if (!confirmed || !context.mounted) return;
 
-    final unlocked = await showSlideToUnlock(context, backColor: Utils.darkColorBackground, slideColor: Utils.darkColorGreen);
+    final unlocked = await showSlideToUnlock(context, backColor: Utils.darkColorBackground, slideColor: Utils.darkColorSecond);
 
     if (!unlocked || !context.mounted) return;
 
@@ -329,7 +330,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Future<void> _uploadData(BuildContext context) async {
-    final resp = await showSlideToUnlock(context, backColor: Utils.darkColorGreen, slideColor: Utils.darkColorBackground);
+    final resp = await showSlideToUnlock(context, backColor: Utils.darkColorSecond, slideColor: Utils.darkColorBackground);
     if (resp) {
       User user = User(email: Preferences.email, password: Preferences.passBackUp, profiles: mainProvider.profiles, items: mainProvider.items, history: mainProvider.history);
       final dialogContext = context;
@@ -385,7 +386,7 @@ class _SettingsPageState extends State<SettingsPage> {
       }
       if (context.mounted) {
         // Deslizar para desbloquear
-        final isUnlocked = await showSlideToUnlock(context, backColor: Utils.darkColorGreen, slideColor: Utils.darkColorBackground);
+        final isUnlocked = await showSlideToUnlock(context, backColor: Utils.darkColorSecond, slideColor: Utils.darkColorBackground);
         if (isUnlocked) {
           _setData(user);
         }
@@ -415,7 +416,7 @@ class _SettingsPageState extends State<SettingsPage> {
     if (path.isNotEmpty && context.mounted) {
       final resp = await showMessage(context: context, message: '¿Restaurar archivo?');
       if (resp && context.mounted) {
-        final unlock = await showSlideToUnlock(context, backColor: Utils.darkColorGreen, slideColor: Utils.darkColorBackground);
+        final unlock = await showSlideToUnlock(context, backColor: Utils.darkColorSecond, slideColor: Utils.darkColorBackground);
         if (unlock) {
           final Map<String, dynamic> dataJson = json.decode(path);
           User user = User.fromJson(dataJson);

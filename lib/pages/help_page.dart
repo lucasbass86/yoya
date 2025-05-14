@@ -34,8 +34,8 @@ class HelpPage extends StatelessWidget {
                               child: ExpansionTile(
                                 iconColor: Utils.lightColorBackground,
                                 collapsedIconColor: Utils.darkColorBackground,
-                                backgroundColor: Utils.darkColorGreen,
-                                collapsedBackgroundColor: Utils.darkColorGreen,
+                                backgroundColor: Utils.darkColorSecond,
+                                collapsedBackgroundColor: Utils.darkColorSecond,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 title: Text('Inicio', style: Utils.bigTitleStyle),
                                 childrenPadding: const EdgeInsets.all(10),
@@ -64,8 +64,8 @@ En la parte superior podemos:
                               child: ExpansionTile(
                                 iconColor: Utils.lightColorBackground,
                                 collapsedIconColor: Utils.darkColorBackground,
-                                backgroundColor: Utils.darkColorGreen,
-                                collapsedBackgroundColor: Utils.darkColorGreen,
+                                backgroundColor: Utils.darkColorSecond,
+                                collapsedBackgroundColor: Utils.darkColorSecond,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 title: Text('Registro', style: Utils.bigTitleStyle),
                                 childrenPadding: const EdgeInsets.all(10),
@@ -97,8 +97,8 @@ Los perfiles no se pueden cambiar. Únicamente las descripciones.''', textAlign:
                               child: ExpansionTile(
                                 iconColor: Utils.lightColorBackground,
                                 collapsedIconColor: Utils.darkColorBackground,
-                                backgroundColor: Utils.darkColorGreen,
-                                collapsedBackgroundColor: Utils.darkColorGreen,
+                                backgroundColor: Utils.darkColorSecond,
+                                collapsedBackgroundColor: Utils.darkColorSecond,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 title: Text('Perfiles', style: Utils.bigTitleStyle),
                                 childrenPadding: const EdgeInsets.all(10),
@@ -128,8 +128,8 @@ Del perfil se pueden modificar el nombre y el icono, guardando los datos desde e
                               child: ExpansionTile(
                                 iconColor: Utils.lightColorBackground,
                                 collapsedIconColor: Utils.darkColorBackground,
-                                backgroundColor: Utils.darkColorGreen,
-                                collapsedBackgroundColor: Utils.darkColorGreen,
+                                backgroundColor: Utils.darkColorSecond,
+                                collapsedBackgroundColor: Utils.darkColorSecond,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                                 title: Text('Configuración', style: Utils.bigTitleStyle),
                                 childrenPadding: const EdgeInsets.all(10),

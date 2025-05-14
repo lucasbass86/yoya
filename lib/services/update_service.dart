@@ -99,7 +99,7 @@ class UpdatePage extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 40, right: 40, bottom: 40, top: 40),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(color: Utils.lightColorBackground, borderRadius: BorderRadius.circular(40)),
-                  child: Center(child: Text('Aceptar', style: Utils.normalStyle20.copyWith(color: Utils.darkColorGreen))),
+                  child: Center(child: Text('Aceptar', style: Utils.normalStyle20.copyWith(color: Utils.darkColorSecond))),
                 ),
               ),
             ],

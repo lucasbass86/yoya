@@ -48,11 +48,11 @@ Future<dynamic> showDialogNewProfile(BuildContext scaffoldContext) {
                             underline: Container(),
                             items:
                                 Utils.profileIcons.map((iconData) {
-                                  return DropdownMenuItem(value: iconData, child: Icon(iconData, color: Utils.darkColorGreen));
+                                  return DropdownMenuItem(value: iconData, child: Icon(iconData, color: Utils.darkColorSecond));
                                 }).toList(),
                             selectedItemBuilder: (context) {
                               return Utils.profileIcons.map((iconData) {
-                                return Icon(icon, color: Utils.lightColorGreen);
+                                return Icon(icon, color: Utils.lightColorSecond);
                               }).toList();
                             },
                             onChanged: (value) {
@@ -242,4 +242,25 @@ Future<DateTime?> showDate(BuildContext context, {DateTime? initialDate}) {
     initialEntryMode: DatePickerEntryMode.calendarOnly,
     builder: (context, child) => BounceInDown(child: child!),
   );
+}
+
+Future<TimeOfDay> showTime(BuildContext context, {TimeOfDay? initialTimeOfDay}) async {
+  final TimeOfDay? pickedTime = await showTimePicker(
+    context: context,
+    initialTime: initialTimeOfDay ?? TimeOfDay.now(),
+    helpText: 'Indica la hora',
+    cancelText: 'Cancelar',
+    confirmText: 'Aceptar',
+    hourLabelText: 'Horas',
+    minuteLabelText: 'Minutos',
+    initialEntryMode: TimePickerEntryMode.dialOnly,
+    builder: (BuildContext context, Widget? child) {
+      return BounceInDown(child: MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child!));
+    },
+  );
+  if (pickedTime != null && pickedTime != initialTimeOfDay) {
+    return pickedTime;
+  } else {
+    return initialTimeOfDay ?? TimeOfDay.now();
+  }
 }

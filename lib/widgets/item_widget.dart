@@ -34,7 +34,7 @@ class _ItemWidgetState extends State<ItemWidget> with TickerProviderStateMixin {
             width: double.infinity,
             height: 140,
             padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(color: Utils.darkColorGreen, borderRadius: BorderRadius.circular(20)),
+            decoration: BoxDecoration(color: Utils.darkColorSecond, borderRadius: BorderRadius.circular(20)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

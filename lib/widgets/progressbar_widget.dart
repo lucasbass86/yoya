@@ -54,11 +54,11 @@ class ProgressBarWidget extends StatelessWidget {
         children: [
           Text(
             "${percentage.toStringAsFixed(1)}%",
-            style: TextStyle(color: Utils.getContrastingTextColor(percentage < 25 ? backgroundColor : progressColor, Utils.darkColorGreen, Utils.lightColorGreen), fontWeight: FontWeight.bold),
+            style: TextStyle(color: Utils.getContrastingTextColor(percentage < 25 ? backgroundColor : progressColor, Utils.darkColorSecond, Utils.lightColorSecond), fontWeight: FontWeight.bold),
           ),
           Text(
             "${(percentage != 0 ? 100 - percentage : 0).toStringAsFixed(1)}%",
-            style: TextStyle(color: Utils.getContrastingTextColor(percentage > 75 ? progressColor : backgroundColor, Utils.darkColorGreen, Utils.lightColorGreen), fontWeight: FontWeight.bold),
+            style: TextStyle(color: Utils.getContrastingTextColor(percentage > 75 ? progressColor : backgroundColor, Utils.darkColorSecond, Utils.lightColorSecond), fontWeight: FontWeight.bold),
           ),
         ],
       ),

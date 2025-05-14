@@ -55,7 +55,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   children: [
                     _top(context),
                     _descriptions(),
-                    Divider(color: Utils.lightColorGreen),
+                    Divider(color: Utils.lightColorSecond),
                     const SizedBox(height: 10),
                     Text('Perfil 1', style: Utils.normalStyle20),
                     _profile1(),
@@ -63,11 +63,11 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     Text('Perfil 2', style: Utils.normalStyle20),
                     _profile2(),
                     const SizedBox(height: 10),
-                    Divider(color: Utils.lightColorGreen),
+                    Divider(color: Utils.lightColorSecond),
                     const SizedBox(height: 10),
                     _progressBar(),
                     const SizedBox(height: 10),
-                    Divider(color: Utils.lightColorGreen),
+                    Divider(color: Utils.lightColorSecond),
                     const SizedBox(height: 10),
                     _history(),
                   ],
@@ -114,8 +114,8 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
             width: constraints.maxWidth,
             currentValue: item!.counter1,
             maxValue: item!.counter1 + item!.counter2,
-            backgroundColor: Utils.darkColorGreen,
-            progressColor: Utils.lightColorGreen,
+            backgroundColor: Utils.darkColorSecond,
+            progressColor: Utils.lightColorSecond,
           );
         },
       );
@@ -174,7 +174,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 mainProvider.profiles.map((p) {
                   return DropdownMenuItem(
                     value: p,
-                    child: Row(children: [Icon(p.icon, color: Utils.darkColorGreen), const SizedBox(width: 10), Text(p.name, style: Utils.normalStyle20.copyWith(color: Utils.darkColorGreen))]),
+                    child: Row(children: [Icon(p.icon, color: Utils.darkColorSecond), const SizedBox(width: 10), Text(p.name, style: Utils.normalStyle20.copyWith(color: Utils.darkColorSecond))]),
                   );
                 }).toList(),
             selectedItemBuilder: (context) {
@@ -196,7 +196,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           ElasticInDown(
             child: Container(
               width: 150,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Utils.darkColorGreen),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Utils.darkColorSecond),
               child: Row(
                 children: [
                   Material(
@@ -257,7 +257,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 mainProvider.profiles.where((value) => value != profile1).map((p) {
                   return DropdownMenuItem(
                     value: p,
-                    child: Row(children: [Icon(p.icon, color: Utils.darkColorGreen), const SizedBox(width: 10), Text(p.name, style: Utils.normalStyle20.copyWith(color: Utils.darkColorGreen))]),
+                    child: Row(children: [Icon(p.icon, color: Utils.darkColorSecond), const SizedBox(width: 10), Text(p.name, style: Utils.normalStyle20.copyWith(color: Utils.darkColorSecond))]),
                   );
                 }).toList(),
             selectedItemBuilder: (context) {
@@ -278,7 +278,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           ElasticInUp(
             child: Container(
               width: 150,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Utils.darkColorGreen),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Utils.darkColorSecond),
               child: Row(
                 children: [
                   Material(
