@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
+import 'package:yoya/utils/utils.dart';
 
 class ProfileModel {
   String id;
@@ -13,7 +14,9 @@ class ProfileModel {
   ProfileModel(this.id, this.name, this.icon);
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is ProfileModel && runtimeType == other.runtimeType && id == other.id;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ProfileModel && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;
@@ -25,7 +28,8 @@ class ProfileModel {
 
   Map<String, dynamic> toMap() => {'id': id, 'name': name, 'icon': icon.codePoint};
 
-  factory ProfileModel.fromMap(Map<String, dynamic> map) => ProfileModel(map['id'], map['name'], IconData(map['icon'], fontFamily: 'MaterialIcons'));
+  factory ProfileModel.fromMap(Map<String, dynamic> map) =>
+      ProfileModel(map['id'], map['name'], Utils.iconFromCode(map['icon']));
 
   String toJson() => json.encode(toMap());
 
