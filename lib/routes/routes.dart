@@ -8,5 +8,4 @@ Map<String, Widget Function(BuildContext)> routes = {
   ItemDetailPage.routeName: (_) => const ItemDetailPage(),
   SettingsPage.routeName: (_) => const SettingsPage(),
   HelpPage.routeName: (_) => const HelpPage(),
-  UpdatePage.routeName: (_) => const UpdatePage(),
 };

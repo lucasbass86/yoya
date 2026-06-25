@@ -53,7 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     },
                   ),
                   SizedBox(height: 20),
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [_widgetSaveButton(), _widgetLoadButton()]),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [_widgetSaveButton(), _widgetLoadButton(), const SizedBox(width: 30)]),
                 ],
               ),
             ),
@@ -68,35 +68,42 @@ class _SettingsPageState extends State<SettingsPage> {
     return Positioned(
       bottom: 10,
       left: 15,
-      child: FutureBuilder(
-        future: PackageInfo.fromPlatform(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            PackageInfo packageInfo = snapshot.data as PackageInfo;
-            return GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  constraints: const BoxConstraints(maxHeight: 150),
-                  backgroundColor: Utils.darkColorBackground,
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
-                  builder: (context) {
-                    return Container(
-                      padding: const EdgeInsets.all(20),
-                      width: double.infinity,
-                      child: Column(
-                        children: [Text('Versión: ${packageInfo.version}', style: Utils.normalStyle20), const SizedBox(height: 20), Text('Actualizada el 10/05/2025', style: Utils.normalStyle20)],
-                      ),
+      right: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          FutureBuilder(
+            future: PackageInfo.fromPlatform(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                PackageInfo packageInfo = snapshot.data as PackageInfo;
+                return GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      constraints: const BoxConstraints(maxHeight: 150),
+                      backgroundColor: Utils.darkColorBackground,
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+                      builder: (context) {
+                        return Container(
+                          padding: const EdgeInsets.all(20),
+                          width: double.infinity,
+                          child: Column(
+                            children: [Text('Versión: ${packageInfo.version}', style: Utils.normalStyle20), const SizedBox(height: 20), Text('Actualizada el 10/05/2025', style: Utils.normalStyle20)],
+                          ),
+                        );
+                      },
                     );
                   },
+                  child: Text('Versión: ${packageInfo.version}', style: Utils.normalStyle20),
                 );
-              },
-              child: Text('Versión: ${packageInfo.version}', style: Utils.normalStyle20),
-            );
-          } else {
-            return Text('Versión:', style: Utils.normalStyle20);
-          }
-        },
+              } else {
+                return Text('Versión:', style: Utils.normalStyle20);
+              }
+            },
+          ),
+          Text('Licencia: ${Preferences.license}', style: Utils.normalStyle15),
+        ],
       ),
     );
   }
@@ -144,12 +151,16 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                   child: Icon(Icons.save),
                 ),
-              if (Preferences.email.isNotEmpty) InkWell(borderRadius: BorderRadius.circular(20), onTap: () => _deleteBackupData(context), child: Icon(Icons.delete)),
+              if (Preferences.email.isNotEmpty) InkWell(borderRadius: BorderRadius.circular(20), onTap: () => _removeEmail(context), child: Icon(Icons.emergency_rounded)),
             ],
           ),
         ),
         SizedBox(height: 40),
-        if (Preferences.email.isNotEmpty) Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [_widgetUpload(context), _widgetDownload(context)]),
+        if (Preferences.email.isNotEmpty)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [_widgetUpload(context), _widgetDownload(context), InkWell(borderRadius: BorderRadius.circular(20), onTap: () => _deleteBackupData(context), child: Icon(Icons.delete))],
+          ),
         SizedBox(height: 40),
         Text('Última copia: ${Preferences.backUp.isEmpty ? '--/--/----' : Utils.dateEnglishToSpanish(Preferences.backUp, showTime: true)}', style: Utils.normalStyle20),
       ],
@@ -250,6 +261,20 @@ class _SettingsPageState extends State<SettingsPage> {
       await Utils.boxHistory.put(s.id, s.toJson());
     }
     _showSnackBar('Datos cargados');
+  }
+
+  void _removeEmail(BuildContext context) async {
+    final resp = await showMessage(context: context, message: '¿Quitar el email?', cancel: true);
+    if (resp && context.mounted) {
+      final unlock = await showSlideToUnlock(context, backColor: Utils.darkColorSecond, slideColor: Utils.darkColorBackground);
+      if (unlock) {
+        Preferences.passBackUp = '';
+        Preferences.email = '';
+        Preferences.backUp = '';
+        emailController.text = '';
+        setState(() {});
+      }
+    }
   }
 
   Future<void> _saveDataBackup(BuildContext context) async {

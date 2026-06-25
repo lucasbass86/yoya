@@ -31,4 +31,12 @@ class Preferences {
     _passBackUp = value;
     _prefs.setString(_sPassBackUp, value);
   }
+
+  static const String _sLicense = 'license';
+  static String _license = '';
+  static String get license => _prefs.getString(_sLicense) ?? _license;
+  static set license(String value) {
+    _license = value;
+    _prefs.setString(_sLicense, value);
+  }
 }

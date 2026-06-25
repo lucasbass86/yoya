@@ -264,3 +264,63 @@ Future<TimeOfDay> showTime(BuildContext context, {TimeOfDay? initialTimeOfDay}) 
     return initialTimeOfDay ?? TimeOfDay.now();
   }
 }
+
+Future<dynamic> showDialogInput(BuildContext scaffoldContext, {TextInputType? inputType, String subtitle = '', String label = '', int maxLength = 75}) {
+  TextEditingController controller = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  return showDialog(
+    context: scaffoldContext,
+    barrierDismissible: false,
+    builder: (context) {
+      return BounceInDown(
+        child: AlertDialog(
+          backgroundColor: Utils.darkColorBackground,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
+          title: Column(children: [Text('Indica el $label', style: Utils.bigTitleStyle), if (subtitle.isNotEmpty) Text(subtitle, style: Utils.normalStyle15)]),
+          content: StatefulBuilder(
+            builder: (context, setState) {
+              return SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      ZoomIn(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Rellena el $label';
+                            }
+                            return null;
+                          },
+                          controller: controller,
+                          maxLength: maxLength,
+                          decoration: InputDecoration(labelText: label, counterText: ''),
+                          keyboardType: inputType ?? TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+          actions: [
+            OutlinedButton(onPressed: () => Navigator.of(context).pop([false]), child: const Text('Cancelar')),
+            ElevatedButton(
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  Navigator.of(context).pop([true, controller.text]);
+                } else {
+                  return;
+                }
+              },
+              child: const Text('Aceptar'),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
