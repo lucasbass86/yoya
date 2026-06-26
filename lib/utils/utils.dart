@@ -83,81 +83,81 @@ class Utils {
 
   static IconData iconFromCode(int code) {
     switch (code) {
-      case 0xe491:
+      case 58513:
         return Icons.person;
-      case 0xe7fd:
+      case 985200:
         return Icons.person_2;
-      case 0xef2a:
+      case 62886:
         return Icons.bakery_dining_rounded;
-      case 0xef75:
+      case 63642:
         return Icons.lunch_dining_rounded;
-      case 0xef6c:
+      case 63129:
         return Icons.delivery_dining_rounded;
-      case 0xe539:
+      case 62796:
         return Icons.airplanemode_on_rounded;
-      case 0xe84e:
+      case 57405:
         return Icons.accessibility_new;
-      case 0xeb88:
+      case 62785:
         return Icons.agriculture_rounded;
-      case 0xea66:
+      case 62972:
         return Icons.cake_rounded;
-      case 0xe52f:
+      case 63149:
         return Icons.directions_bike_rounded;
-      case 0xe87d:
+      case 57947:
         return Icons.favorite;
-      case 0xe838:
+      case 983507:
         return Icons.star_rate_rounded;
-      case 0xe87c:
+      case 57938:
         return Icons.face;
-      case 0xf04f:
+      case 985184:
         return Icons.face_3;
-      case 0xf050:
+      case 985185:
         return Icons.face_4;
-      case 0xe420:
+      case 62499:
         return Icons.tag_faces_outlined;
-      case 0xf1c6:
+      case 63609:
         return Icons.local_pizza_rounded;
-      case 0xe541:
+      case 57720:
         return Icons.coffee;
-      case 0xe9a0:
+      case 983922:
         return Icons.rocket_launch_rounded;
-      case 0xe3af:
+      case 61562:
         return Icons.fitness_center_outlined;
-      case 0xef46:
+      case 983480:
         return Icons.sports_bar_rounded;
       case 0xeb4c:
         return Icons.spa_rounded;
-      case 0xe43c:
+      case 983469:
         return Icons.thunderstorm_rounded;
-      case 0xe8dc:
+      case 983600:
         return Icons.thumb_up_alt_rounded;
-      case 0xe3ab:
+      case 58235:
         return Icons.lightbulb;
-      case 0xe2db:
+      case 983336:
         return Icons.savings_rounded;
-      case 0xe86e:
+      case 63041:
         return Icons.class_rounded;
-      case 0xe54d:
+      case 983594:
         return Icons.theaters_rounded;
-      case 0xe3b0:
+      case 57558:
         return Icons.beach_access;
-      case 0xe54f:
+      case 57693:
         return Icons.checkroom;
-      case 0xef55:
+      case 62909:
         return Icons.blender_rounded;
-      case 0xe430:
+      case 984437:
         return Icons.sunny;
-      case 0xe9d8:
+      case 983364:
         return Icons.self_improvement_rounded;
-      case 0xe798:
+      case 983988:
         return Icons.water_drop_rounded;
-      case 0xe837:
+      case 57582:
         return Icons.bolt;
-      case 0xe0b7:
+      case 62996:
         return Icons.campaign_rounded;
-      case 0xe405:
+      case 62867:
         return Icons.audiotrack_rounded;
-      case 0xe531:
+      case 63154:
         return Icons.directions_car_filled_rounded;
       default:
         return Icons.person;

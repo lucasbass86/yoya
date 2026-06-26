@@ -22,7 +22,8 @@ class MainProvider with ChangeNotifier {
 
   void loadProfiles({String search = ''}) {
     if (search.isNotEmpty) {
-      filterProfiles = profiles.where((p) => p.name.toUpperCase().contains(search.toUpperCase())).toList();
+      filterProfiles =
+          profiles.where((p) => p.name.toUpperCase().contains(search.toUpperCase())).toList();
     } else {
       filterProfiles = profiles;
     }
@@ -52,13 +53,16 @@ class MainProvider with ChangeNotifier {
     filterProfiles.sort((a, b) => a.name.compareTo(b.name));
     await Utils.boxProfiles.delete(profile.id);
 
-    List<ItemModel> itemsToDelete = items.where((h) => h.idProfile1 == profile.id || h.idProfile2 == profile.id).toList();
+    List<ItemModel> itemsToDelete =
+        items.where((h) => h.idProfile1 == profile.id || h.idProfile2 == profile.id).toList();
     final futuresItems = itemsToDelete.map((h) => Utils.boxItems.delete(h.id));
     await Future.wait(futuresItems);
     items.removeWhere((i) => i.idProfile1 == profile.id || i.idProfile2 == profile.id);
     filterItems = items;
 
-    final futuresHistory = history.where((h) => itemsToDelete.map((i) => i.id).toList().contains(h.item.id)).map((h) => Utils.boxHistory.delete(h.id));
+    final futuresHistory = history
+        .where((h) => itemsToDelete.map((i) => i.id).toList().contains(h.item.id))
+        .map((h) => Utils.boxHistory.delete(h.id));
     await Future.wait(futuresHistory);
     history.removeWhere((h) => h.item.id == profile.id);
 
@@ -67,7 +71,8 @@ class MainProvider with ChangeNotifier {
 
   void loadItems({String search = ''}) {
     if (search.isNotEmpty) {
-      filterItems = items.where((i) => i.description.toUpperCase().contains(search.toUpperCase())).toList();
+      filterItems =
+          items.where((i) => i.description.toUpperCase().contains(search.toUpperCase())).toList();
     } else {
       filterItems = items;
     }
@@ -93,7 +98,9 @@ class MainProvider with ChangeNotifier {
     items.remove(item);
     filterItems = items;
     await Utils.boxItems.delete(item.id);
-    final futuresHistory = history.where((h) => h.item.id == item.id).map((h) => Utils.boxHistory.delete(h.id));
+    final futuresHistory = history
+        .where((h) => h.item.id == item.id)
+        .map((h) => Utils.boxHistory.delete(h.id));
     await Future.wait(futuresHistory);
     history.removeWhere((h) => h.item.id == item.id);
     notifyListeners();
@@ -139,15 +146,25 @@ class MainProvider with ChangeNotifier {
 
   List<ItemModel> itemsProfile = [];
   void loadItemsFromProfile(ProfileModel profile, {String search = ''}) {
-    itemsProfile = items.where((i) => i.idProfile1 == profile.id || i.idProfile2 == profile.id).toList();
+    itemsProfile =
+        items.where((i) => i.idProfile1 == profile.id || i.idProfile2 == profile.id).toList();
     if (search.isNotEmpty) {
-      itemsProfile = itemsProfile.where((i) => i.description.toUpperCase().contains(search.toUpperCase())).toList();
+      itemsProfile =
+          itemsProfile
+              .where((i) => i.description.toUpperCase().contains(search.toUpperCase()))
+              .toList();
     }
     notifyListeners();
   }
 
   void updateHistory(HistoryModel historyModel) async {
     await Utils.boxHistory.put(historyModel.id, historyModel.toJson());
+    notifyListeners();
+  }
+
+  Future<void> deleteHistory(String historyId) async {
+    history.removeWhere((h) => h.id == historyId);
+    await Utils.boxHistory.delete(historyId);
     notifyListeners();
   }
 }

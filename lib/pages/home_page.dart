@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    MainProvider mainProvider = Provider.of(context);
+    MainProvider mainProvider = Provider.of<MainProvider>(context);
     return Scaffold(
       floatingActionButton: _fab(mainProvider, context),
       body: Stack(

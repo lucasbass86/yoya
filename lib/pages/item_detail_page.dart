@@ -39,7 +39,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       counting = true;
     }
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () => _save(context), child: Icon(Icons.save)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _save(context),
+        child: Icon(Icons.save),
+      ),
       body: Stack(
         children: [
           BackgroundWidget(),
@@ -63,11 +66,11 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                     Text('Perfil 2', style: Utils.normalStyle20),
                     _profile2(),
                     const SizedBox(height: 10),
-                    Divider(color: Utils.lightColorSecond),
+                    if (item != null) Divider(color: Utils.lightColorSecond),
                     const SizedBox(height: 10),
                     _progressBar(),
                     const SizedBox(height: 10),
-                    Divider(color: Utils.lightColorSecond),
+                    if (item != null) Divider(color: Utils.lightColorSecond),
                     const SizedBox(height: 10),
                     _history(),
                   ],
@@ -81,7 +84,11 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   }
 
   Widget _top(BuildContext context) {
-    return TopWidget(title: 'Detalle Registro', showDelete: item != null, onDelete: () => _delete(context));
+    return TopWidget(
+      title: 'Detalle Registro',
+      showDelete: item != null,
+      onDelete: () => _delete(context),
+    );
   }
 
   Widget _descriptions() {
@@ -89,7 +96,14 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 10),
-        ZoomIn(child: TextField(controller: nameController, maxLength: 75, textCapitalization: TextCapitalization.sentences, decoration: InputDecoration(labelText: 'Descripción', counterText: ''))),
+        ZoomIn(
+          child: TextField(
+            controller: nameController,
+            maxLength: 75,
+            textCapitalization: TextCapitalization.sentences,
+            decoration: InputDecoration(labelText: 'Descripción', counterText: ''),
+          ),
+        ),
         const SizedBox(height: 20),
         ZoomIn(
           child: TextField(
@@ -141,7 +155,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
             },
           ),
           const SizedBox(height: 10),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text('Histórico', style: Utils.normalStyle30), Text(history.length.toString(), style: Utils.normalStyle30)]),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Histórico', style: Utils.normalStyle30),
+              Text(history.length.toString(), style: Utils.normalStyle30),
+            ],
+          ),
           const SizedBox(height: 10),
           ListView.builder(
             shrinkWrap: true,
@@ -149,7 +169,39 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             itemCount: history.length,
             itemBuilder: (context, index) {
-              return BounceInLeft(delay: Duration(milliseconds: 100 * index), child: HistoryWidget(history: history[index]));
+              return Dismissible(
+                key: Key(history[index].id),
+                direction: DismissDirection.startToEnd,
+                confirmDismiss: (direction) async {
+                  final resp = await showMessage(
+                    context: context,
+                    message: '¿Borrar el historial?',
+                    cancel: true,
+                  );
+                  if (resp) {
+                    await mainProvider.deleteHistory(history[index].id);
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(Utils.snackBar('Registro borrado'));
+                      setState(() {
+                        counting = false;
+                      });
+                    }
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
+                background: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [Icon(Icons.delete_outline_rounded, color: Utils.lightColorSecond)],
+                ),
+                child: BounceInLeft(
+                  delay: Duration(milliseconds: 100 * index),
+                  child: HistoryWidget(history: history[index]),
+                ),
+              );
             },
           ),
         ],
@@ -174,12 +226,30 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 mainProvider.profiles.map((p) {
                   return DropdownMenuItem(
                     value: p,
-                    child: Row(children: [Icon(p.icon, color: Utils.darkColorSecond), const SizedBox(width: 10), Text(p.name, style: Utils.normalStyle20.copyWith(color: Utils.darkColorSecond))]),
+                    child: Row(
+                      children: [
+                        Icon(p.icon, color: Utils.darkColorSecond),
+                        const SizedBox(width: 10),
+                        Text(
+                          p.name,
+                          style: Utils.normalStyle20.copyWith(color: Utils.darkColorSecond),
+                        ),
+                      ],
+                    ),
                   );
                 }).toList(),
             selectedItemBuilder: (context) {
               return mainProvider.profiles.map((p) {
-                return DropdownMenuItem(value: p, child: Row(children: [Icon(p.icon), const SizedBox(width: 10), Text(p.name, style: Utils.normalStyle20)]));
+                return DropdownMenuItem(
+                  value: p,
+                  child: Row(
+                    children: [
+                      Icon(p.icon),
+                      const SizedBox(width: 10),
+                      Text(p.name, style: Utils.normalStyle20),
+                    ],
+                  ),
+                );
               }).toList();
             },
             onChanged: (value) {
@@ -196,7 +266,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           ElasticInDown(
             child: Container(
               width: 150,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Utils.darkColorSecond),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Utils.darkColorSecond,
+              ),
               child: Row(
                 children: [
                   Material(
@@ -217,7 +290,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       height: 50,
                       child: FittedBox(
                         fit: BoxFit.contain,
-                        child: ZoomIn(controller: (p0) => controller1 = p0, child: Text(item!.counter1.toString(), style: TextStyle(color: Utils.lightColorBackground))),
+                        child: ZoomIn(
+                          controller: (p0) => controller1 = p0,
+                          child: Text(
+                            item!.counter1.toString(),
+                            style: TextStyle(color: Utils.lightColorBackground),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -251,18 +330,39 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
             dropdownColor: Utils.lightColorBackground,
             underline: Container(),
             isExpanded: true,
-            value: mainProvider.profiles.where((p) => p != profile1).contains(profile2) ? profile2 : null,
+            value:
+                mainProvider.profiles.where((p) => p != profile1).contains(profile2)
+                    ? profile2
+                    : null,
             enableFeedback: item == null,
             items:
                 mainProvider.profiles.where((value) => value != profile1).map((p) {
                   return DropdownMenuItem(
                     value: p,
-                    child: Row(children: [Icon(p.icon, color: Utils.darkColorSecond), const SizedBox(width: 10), Text(p.name, style: Utils.normalStyle20.copyWith(color: Utils.darkColorSecond))]),
+                    child: Row(
+                      children: [
+                        Icon(p.icon, color: Utils.darkColorSecond),
+                        const SizedBox(width: 10),
+                        Text(
+                          p.name,
+                          style: Utils.normalStyle20.copyWith(color: Utils.darkColorSecond),
+                        ),
+                      ],
+                    ),
                   );
                 }).toList(),
             selectedItemBuilder: (context) {
               return mainProvider.profiles.where((value) => value != profile1).map((p) {
-                return DropdownMenuItem(value: p, child: Row(children: [Icon(p.icon), const SizedBox(width: 10), Text(p.name, style: Utils.normalStyle20)]));
+                return DropdownMenuItem(
+                  value: p,
+                  child: Row(
+                    children: [
+                      Icon(p.icon),
+                      const SizedBox(width: 10),
+                      Text(p.name, style: Utils.normalStyle20),
+                    ],
+                  ),
+                );
               }).toList();
             },
             onChanged: (value) {
@@ -278,7 +378,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           ElasticInUp(
             child: Container(
               width: 150,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Utils.darkColorSecond),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Utils.darkColorSecond,
+              ),
               child: Row(
                 children: [
                   Material(
@@ -299,7 +402,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       height: 50,
                       child: FittedBox(
                         fit: BoxFit.contain,
-                        child: ZoomIn(controller: (p0) => controller2 = p0, child: Text(item!.counter2.toString(), style: TextStyle(color: Utils.lightColorBackground))),
+                        child: ZoomIn(
+                          controller: (p0) => controller2 = p0,
+                          child: Text(
+                            item!.counter2.toString(),
+                            style: TextStyle(color: Utils.lightColorBackground),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -338,7 +447,15 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       return;
     }
     if (item == null) {
-      item = ItemModel(Uuid().v4(), nameController.text.trim(), observController.text.trim(), profile1!.id, profile2!.id, 0, 0);
+      item = ItemModel(
+        Uuid().v4(),
+        nameController.text.trim(),
+        observController.text.trim(),
+        profile1!.id,
+        profile2!.id,
+        0,
+        0,
+      );
       mainProvider.addItem(item!);
       ScaffoldMessenger.of(context).showSnackBar(Utils.snackBar('Registro guardado'));
     } else {
@@ -365,7 +482,9 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
   void _delete(BuildContext context) async {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final navigator = Navigator.of(context);
-    await showMessage(context: context, message: '¿Borrar el registro?', cancel: true).then((onValue) {
+    await showMessage(context: context, message: '¿Borrar el registro?', cancel: true).then((
+      onValue,
+    ) {
       if (onValue) {
         mainProvider.deleteItem(item!);
         scaffoldMessenger.showSnackBar(Utils.snackBar('Registro borrado'));

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:yoya/dialogs/dialogs.dart';
@@ -105,7 +104,7 @@ class License {
 }
 
 class LicenseService {
-  static final String appName = 'KeepCalmPlayer';
+  static final String appName = Secret.appName;
   static final String success = 'success';
   static final String error = 'error';
   static final String emailDev = Secret.emailDev;
@@ -238,7 +237,8 @@ class LicenseService {
       PackageInfo.fromPlatform().then((value) async {
         packageInfo = value;
         if (!context.mounted) return;
-        final version = await Provider.of<UpdateService>(context, listen: false).getVersiones();
+        // final version = await Provider.of<UpdateService>(context, listen: false).getVersiones();
+        final version = await UpdateService().getVersiones();
         if (version.isNotEmpty) {
           Versiones v = version.firstWhere(
             (v) => v.appname.toUpperCase() == UpdateService.appName.toUpperCase(),
@@ -332,13 +332,12 @@ class UpdateService extends ChangeNotifier {
   final String _urlUserLock = Secret.urlUserLock;
   List<Versiones> versiones = [];
   List<CResultado> resultado = [];
-  static final String appName = 'KEEPCALMPLAYER';
+  static final String appName = Secret.appName;
   static String urlUpdatePath = '';
 
   Future<List<Versiones>> getVersiones() async {
     final response = await http.get(Uri.parse(_urlVersiones));
     versiones = versionesFromJson(response.body);
-    notifyListeners();
     return versiones;
   }
 
@@ -355,7 +354,6 @@ class UpdateService extends ChangeNotifier {
     final params = {'app': appName, 'id': id};
     final uri = Uri.parse(_urlUserLock).replace(queryParameters: params);
     final response = await http.get(uri);
-
     resultado = cResultadoFromJson(response.body);
     return resultado;
   }
@@ -412,8 +410,8 @@ class UpdatePage extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.only(top: 30, right: 30),
                 child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Text('Omitir', style: TextStyle(fontWeight: FontWeight.bold)),
+                  onTap: () => SystemNavigator.pop(),
+                  child: Text('Salir', style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ),
             ),
